@@ -41,7 +41,12 @@ return [
             'provider' => 'users',
         ],
 
-        'admin' => [
+        'users' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'admins' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
@@ -95,6 +100,12 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'admin_password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],

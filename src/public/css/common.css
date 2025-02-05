@@ -4,7 +4,7 @@
 
 body {
     width: 100vw;
-    background-color: #E1E1E1;
+    font-family: 'Inter', sans-serif;
 }
 
 img {
@@ -34,6 +34,10 @@ header {
     top: 0px;
 }
 
+a {
+    text-decoration: none;
+}
+
 .header__logo {
     width: 250px;
     height: fit-content;
@@ -53,30 +57,26 @@ header {
     margin-right: 30px;
 }
 
+.header__nav a {
+    color: #fff;
+}
+
 .header__nav li:hover {
     font-weight: bold;
 }
 
 .header__logout {
     color: #fff;
-    font-size: 16px;
+    font-size: 0.9rem;
+    height: 60px;
 }
 
 .header__logout:hover {
     font-weight: bold;
 }
 
-.header__btn {
-    background-color: #fff;
-    border-radius: 4px;
-    color: #000;
-    font-weight: bold;
-    padding: 10px 15px;
-}
-
-.header__btn:hover {
-    opacity: 0.8;
-    transition: 0.3s;
+.container {
+    padding: 5%;
 }
 
 .btn {
@@ -130,6 +130,13 @@ header {
 .form__error {
     color: #ff333f;
     margin-top: 8px;
+}
+
+.alert--success {
+    padding: 10px 30px;
+    border-color: #badbcc;
+    background-color: #d1e7dd;
+    color: #0f5132;
 }
 
 @media (min-width: 768px) and (max-width: 850px) {
