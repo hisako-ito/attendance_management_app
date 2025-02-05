@@ -4,6 +4,9 @@
     </div>
     <nav class="header__nav">
         <ul>
+            <li><a href="/attendance">勤怠</a></li>
+            <li><a href="/attendance/list">勤怠一覧</a></li>
+            <li><a href="/stamp_correction_request/list">申請</a></li>
             @if(Auth::check())
             <li>
                 <form action="/logout" method="post">
@@ -14,11 +17,6 @@
             @else
             <li><a href="/login">ログイン</a></li>
             @endif
-            <li><a href="/register">会員登録</a></li>
-            <li><a href="/mypage">マイページ</a></li>
-            <a href="/sell">
-                <li class="header__btn">出品</li>
-            </a>
         </ul>
     </nav>
 </header>

@@ -1,23 +1,28 @@
 @extends('layouts.app')
 
-<!-- タイトル -->
 @section('title','トップページ')
 
-<!-- css読み込み -->
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/index.css')  }}">
 @endsection
 
-<!-- 本体 -->
-@include('components.header')
 @section('content')
+
+@include('components.header')
 <div class="attendance__alert">
-    // メッセージ機能
+    @if (session('message'))
+    <div class="alert--success">
+        {{ session('message') }}
+    </div>
+    @endif
 </div>
 
-<div class="attendance__content">
+<div class="container">
+    <h2>{{ $now->format('Y年m月d日') }}</h2>
+    <h3>{{ $now->format('H:i') }}</h3>
     <div class="attendance__panel">
-        <form class="attendance__button">
+        <form class="attendance__button" action="{{ route('attendance.clock-in') }}" method="POST">
+            @csrf
             <button class="attendance__button-submit" type="submit">出勤</button>
         </form>
         <form class="attendance__button">

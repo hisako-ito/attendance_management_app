@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\AttendanceController as AdminAttendanceController;
-use App\Http\Controllers\Admin\LoginController as AdminLoginController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -17,18 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('admin')->group(function () {
-    Route::get('/login', [AdminLoginController::class, 'showLoginPage']);
-    Route::post('/login', [AdminLoginController::class, 'login']);
-});
+include __DIR__ . '/admin.php';
 
-Route::middleware(['auth:admin'])->group(function () {
-    Route::get('/attendance/list', [AdminAttendanceController::class, 'show']);
-});
+Route::get('/login', [LoginController::class, 'showLoginForm']);
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/attendance', [AttendanceController::class, 'index']);
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn'])->name('attendance.clock-in');
+    Route::post('/attendance/break-start', [AttendanceController::class, 'breakStart'])->name('attendance.break-start');
+    Route::post('/attendance/end-break', [AttendanceController::class, 'breakEnd'])->name('attendance.break-end');
     Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
+
     Route::get('/attendance/list', [AttendanceController::class, 'show']);
 });

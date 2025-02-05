@@ -12,7 +12,7 @@
         <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="ロゴ"></a>
     </div>
 </header>
-<form action="/login" method="post" class="authenticate center">
+<form action="{{ route('admin.login') }}" method="post" class="authenticate center">
     @csrf
     <h1 class="page__title">管理者ログイン</h1>
     <label for="mail" class="entry__name">メールアドレス</label>
