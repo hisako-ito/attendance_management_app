@@ -5,45 +5,92 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance;
+use App\Models\BreakTime;
 use Illuminate\Support\Carbon;
 
 class AttendanceController extends Controller
 {
     public function index()
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'ログインしてください');
-        }
-
-        $now = Carbon::now();
-
-        return view('index', compact('now'));
-    }
-
-    public function clockIn(Request $request)
-    {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'ログインしてください');
-        }
         $user = Auth::user();
         $today = Carbon::now();
-        $attendance = Attendance::firstOrCreate(
-            ['user_id' => $user->id, 'date' => $today],
+        $attendance = Attendance::where('user_id', $user->id)
+            ->where('date', $today->format('Y-m-d'))
+            ->first();
+
+        $breakTime = $attendance
+            ? BreakTime::where('attendance_id', $attendance->id)
+            ->whereNull('break_end')
+            ->latest('break_start')
+            ->first()
+            : null;
+
+        return view('index', compact('today', 'attendance', 'breakTime'));
+    }
+
+    public function clockIn()
+    {
+        $user = Auth::user();
+        $today = Carbon::today();
+        Attendance::firstOrCreate(
+            ['user_id' => $user->id, 'date' => $today->format('Y-m-d')],
             ['start_time' => Carbon::now()]
         );
         return redirect()->route('attendance.index')->with('message', '出勤しました');
     }
 
-    public function breakStart(Request $request)
+    public function breakStart()
     {
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'ログインしてください');
-        }
-
         $user = Auth::user();
         $today = Carbon::today();
+        $attendance = Attendance::where('user_id', $user->id)
+            ->where('date', $today->format('Y-m-d'))
+            ->first();
 
+        BreakTime::create(
+            [
+                'attendance_id' => $attendance->id,
+                'break_start' => Carbon::now()
+            ]
+        );
 
         return redirect()->route('attendance.index')->with('message', '休憩に入りました');
+    }
+
+    public function breakEnd()
+    {
+        $user = Auth::user();
+        $today = Carbon::today();
+        $attendance = Attendance::where('user_id', $user->id)
+            ->where('date', $today->format('Y-m-d'))
+            ->first();
+
+        if ($attendance) {
+            $breakTime = $attendance ? BreakTime::where('attendance_id', $attendance->id)
+                ->whereNull('break_end')
+                ->latest('break_start')
+                ->first() : null;
+            if ($breakTime) {
+                $breakTime->update(['break_end' => Carbon::now()]);
+            }
+        }
+
+        return redirect()->route('attendance.index')->with('message', '休憩から戻りました');
+    }
+
+    public function clockOut()
+    {
+        $user = Auth::user();
+        $today = Carbon::today();
+        $attendance = Attendance::where('user_id', $user->id)
+            ->where('date', $today->format('Y-m-d'))
+            ->first();
+        if ($attendance) {
+            Attendance::where('id', $attendance->id)->update(
+                ['end_time' => Carbon::now()]
+            );
+        }
+
+        return redirect()->route('attendance.index')->with('message', '退勤しました');
     }
 }

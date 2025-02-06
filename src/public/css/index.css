@@ -16,9 +16,34 @@
     margin: 0;
 }
 
-.attendance__panel {
-    margin: 0 auto;
-    width: 70%;
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10%;
+}
+
+.container__inner {
+    width: 60%;
+    text-align: center;
+}
+
+.status-label {
+    display: inline-block;
+    color: #696969;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background-color: #C8C8C8;
+    font-weight: bold;
+}
+
+.today-date {
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+.present-time {
+    font-size: 3rem;
 }
 
 .attendance__button {
@@ -28,42 +53,30 @@
 
 .attendance__button-submit {
     padding: 5px;
-    width: 30%;
+    width: 150px;
     height: 50px;
     border: none;
-    border-radius: 3px;
+    border-radius: 20px;
     background: #000;
     color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
     cursor: pointer;
 }
 
-.attendance__content {
-    margin: 0 auto;
-    padding: 30px 15px;
-    max-width: 1230px;
+.attendance__button-break {
+    background: #fff;
+    color: #000;
 }
 
-.attendance-table {
-    margin: 30px auto;
-    width: 70%;
-    text-align: center;
+.button-container {
+    display: flex;
+    justify-content: center;
+    padding: 0 25%;
+    gap: 10px;
 }
 
-.attendance-table__inner {
-    width: 100%;
-}
-
-.attendance-table__row {
-    border-bottom: 1px solid #ddd;
-}
-
-.attendance-table__header {
-    padding: 12px;
-    width: 20%;
+.clock-out-message {
+    font-size: 1.5rem;
     font-weight: bold;
-}
-
-.attendance-table__item {
-    padding: 12px;
-    width: 20%;
 }
