@@ -38,6 +38,11 @@ header {
     top: 0px;
 }
 
+.heading-container {
+    border-left: 8px solid #000;
+    padding-left: 15px;
+}
+
 a {
     text-decoration: none;
 }

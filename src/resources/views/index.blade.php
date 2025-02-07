@@ -9,6 +9,7 @@
 @section('content')
 
 @include('components.header')
+
 <div class="attendance__alert">
     @if (session('message'))
     <div class="alert--success">

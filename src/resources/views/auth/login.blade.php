@@ -9,7 +9,7 @@
 @section('content')
 <header class="header">
     <div class="header__logo">
-        <a href="/"><img src="{{ asset('img/logo.svg') }}" alt="ロゴ"></a>
+        <img src="{{ asset('img/logo.svg') }}" alt="ロゴ">
     </div>
 </header>
 <form action="/login" method="post" class="authenticate center">

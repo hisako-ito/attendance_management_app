@@ -19,7 +19,6 @@ class CreateAttendancesTable extends Migration
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time')->nullable();
-            $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });
     }
