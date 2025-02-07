@@ -1,0 +1,44 @@
+.container {
+    width: 65%;
+}
+
+.attendance__table {
+    margin-top: 16px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.attendance__header-row {
+    border-bottom: 3px solid #E1E1E1;
+}
+
+.attendance__row {
+    border-bottom: 2px solid #E1E1E1;
+}
+
+.attendance__label {
+    text-align: left;
+}
+
+.attendance__label,
+.attendance__data {
+    padding: 16px 8px;
+    color: #737373;
+    font-weight: bold;
+}
+
+.attendance__label:first-of-type,
+.attendance__data:first-of-type {
+    padding-left: 48px;
+}
+
+.attendance__label:last-of-type,
+.attendance__data:last-of-type {
+    padding-right: 48px;
+}
+
+.attendance__detail-btn {
+    color: #000;
+}
