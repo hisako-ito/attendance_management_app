@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\StampCorrectionRequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-include __DIR__ . '/admin.php';
-
 Route::get('/login', [LoginController::class, 'showLoginForm']);
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout']);
@@ -28,5 +27,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/attendance/end-break', [AttendanceController::class, 'breakEnd'])->name('attendance.break-end');
     Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
 
-    Route::get('/attendance/list', [AttendanceController::class, 'attendanceShow'])->name('attendance.list');
+    Route::get('/attendance/list/{year?}/{month?}', [AttendanceController::class, 'attendanceShow'])->name('attendance.list');
+
+    Route::get('/attendance/{id}', [StampCorrectionRequestController::class, 'stampCorrectionRequestCreate']);
+    Route::post('/attendance/{id}', [StampCorrectionRequestController::class, 'stampCorrectionRequestStore']);
 });
