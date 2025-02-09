@@ -1,9 +1,49 @@
 .container {
-    width: 65%;
+    width: 70%;
+}
+
+.month-container {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 16px 24px;
+    margin-top: 40px;
+}
+
+.month-content {
+    position: relative;
+    width: 90px;
+    display: flex;
+    align-items: center;
+}
+
+.current-month {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.month-link {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.month-content a {
+    color: #737373;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    display: block;
+}
+
+.next-month-link {
+    text-align: right;
 }
 
 .attendance__table {
-    margin-top: 16px;
+    margin-top: 40px;
     width: 100%;
     border-collapse: collapse;
     border-radius: 10px;
@@ -18,8 +58,8 @@
     border-bottom: 2px solid #E1E1E1;
 }
 
-.attendance__label {
-    text-align: left;
+.attendance__row:last-of-type {
+    border-bottom: none;
 }
 
 .attendance__label,
@@ -27,6 +67,11 @@
     padding: 16px 8px;
     color: #737373;
     font-weight: bold;
+}
+
+.attendance__label {
+    text-align: left;
+    padding: 12px 8px;
 }
 
 .attendance__label:first-of-type,

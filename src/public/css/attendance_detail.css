@@ -1,0 +1,109 @@
+.correction-request-form__inner {
+    margin: 50px auto 0;
+    width: 60%;
+}
+
+.correction-request-form__table {
+    margin-top: 50px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.correction-request-form__row {
+    border-bottom: 2px solid #E1E1E1;
+}
+
+.correction-request-form__label,
+.correction-request-form__data {
+    padding: 32px 8px;
+    font-size: 1rem;
+    color: #737373;
+    font-weight: bold;
+}
+
+.correction-request-form__label {
+    text-align: left;
+    padding: 0;
+    width: 30%;
+}
+
+.correction-request-form__label:first-of-type,
+.correction-request-form__data:first-of-type {
+    padding-left: 48px;
+}
+
+.correction-request-form__label:last-of-type,
+.correction-request-form__data:last-of-type {
+    padding-right: 48px;
+}
+
+.correction-request-form__item-inputs {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.correction-request-form__item-inputs span {
+    color: #000;
+    display: block;
+    padding: 8px;
+}
+
+.correction-request-form__item-input {
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid #E1E1E1;
+    padding: 8px;
+    width: 100px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.correction-request-form__data--name {
+    color: #000;
+}
+
+.correction-request-form__textarea {
+    border: 1px solid #E1E1E1;
+    padding: 8px 16px;
+    height: 100px;
+    resize: none;
+    border-radius: 4px;
+}
+
+.correction-request-form__btn-inner {
+    margin-top: 30px;
+    display: flex;
+    justify-content: end;
+}
+
+.correction-request-form__btn {
+    width: 15%;
+    font-size: 1.2rem;
+}
+
+/* レスポンシブ (768px以上)*/
+@media screen and (min-width: 768px) {
+    .correction-request-form__label {
+        width: 30%;
+        white-space: nowrap;
+    }
+
+    .correction-request-form__inner {
+        width: 85%;
+    }
+}
+
+/* レスポンシブ (1000px以上)*/
+@media screen and (min-width: 1400px) {
+    .correction-request-form__label {
+        width: 20%;
+        white-space: nowrap;
+    }
+
+    .correction-request-form__inner {
+        width: 70%;
+    }
+}

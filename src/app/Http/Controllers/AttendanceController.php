@@ -98,21 +98,17 @@ class AttendanceController extends Controller
     {
         $user = Auth::user();
 
-        // デフォルトで現在の年月を設定
         $currentDate = Carbon::now();
         $year = $year ?? $currentDate->year;
         $month = $month ?? $currentDate->month;
 
-        // 月初と月末の日付を取得
         $startOfMonth = Carbon::create($year, $month, 1)->startOfMonth();
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
 
-        // 勤怠データを取得
         $attendances = Attendance::with('breaks')
             ->where('user_id', $user->id)
             ->whereBetween('date', [$startOfMonth, $endOfMonth])->get();
 
-        // 前月・翌月の計算
         $previousMonth = $startOfMonth->copy()->subMonth();
         $nextMonth = $startOfMonth->copy()->addMonth();
 
