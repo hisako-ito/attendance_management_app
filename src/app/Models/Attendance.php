@@ -33,6 +33,11 @@ class Attendance extends Model
         return $this->hasMany(BreakTime::class);
     }
 
+    public function attendanceCorrectionRequests()
+    {
+        return $this->hasMany(AttendanceCorrectionRequest::class);
+    }
+
     public function getTotalBreakTimeAttribute()
     {
         $totalMinutes = $this->breaks->reduce(function ($carry, $break) {

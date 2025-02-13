@@ -27,8 +27,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/attendance/end-break', [AttendanceController::class, 'breakEnd'])->name('attendance.break-end');
     Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
 
+    Route::get('/attendance/list', [AttendanceController::class, 'attendanceShow'])->name('attendance.list.default');
     Route::get('/attendance/list/{year?}/{month?}', [AttendanceController::class, 'attendanceShow'])->name('attendance.list');
 
-    Route::get('/attendance/{id}', [StampCorrectionRequestController::class, 'stampCorrectionRequestCreate']);
-    Route::post('/attendance/{id}', [StampCorrectionRequestController::class, 'stampCorrectionRequestStore']);
+    Route::get('/attendance/{id}', [\App\Http\Controllers\StampCorrectionRequestController::class, 'stampCorrectionRequestCreate'])
+        ->name('attendance.detail');
+    Route::post('/attendance/{id}', [\App\Http\Controllers\StampCorrectionRequestController::class, 'stampCorrectionRequestStore'])
+        ->name('attendance.detail.store');
+
+    Route::get('/stamp_correction_request/list', [StampCorrectionRequestController::class, 'stampCorrectionRequestShow'])->name('requests.list');
 });

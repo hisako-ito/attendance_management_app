@@ -1,0 +1,65 @@
+.border {
+    margin-top: 50px;
+}
+
+.border__list {
+    border-bottom: 1px solid #000000;
+    display: flex;
+}
+
+.border__list li:first-child {
+    padding-left: 10%;
+}
+
+.border__list li {
+    list-style: none;
+    padding: 20px 80px;
+}
+
+.border__list a {
+    color: #000000;
+}
+
+.border__list a.active-tab {
+    font-weight: bold;
+}
+
+.month-container {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 16px 24px;
+    margin-top: 50px;
+}
+
+.month-content {
+    position: relative;
+    width: 90px;
+    display: flex;
+    align-items: center;
+}
+
+.current-month {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.month-link {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.month-content a {
+    color: #737373;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    display: block;
+}
+
+.next-month-link {
+    text-align: right;
+}
