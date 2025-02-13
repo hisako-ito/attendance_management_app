@@ -4,18 +4,26 @@
     </div>
     <nav class="header__nav">
         <ul>
+            @if (Auth::guard('admins')->check())
+            <li><a href="/admin/attendance/list">勤怠一覧</a></li>
+            <li><a href="/admin/staff/list">スタッフ一覧</a></li>
+            <li><a href="/stamp_correction_request/list">申請一覧</a></li>
+            <li>
+                <form action="/admin/logout" method="post">
+                    @csrf
+                    <button class="header__logout">ログアウト</button>
+                </form>
+            </li>
+            @else (Auth::guard('web')->check())
             <li><a href="/attendance">勤怠</a></li>
             <li><a href="/attendance/list">勤怠一覧</a></li>
             <li><a href="/stamp_correction_request/list">申請</a></li>
-            @if(Auth::check())
             <li>
                 <form action="/logout" method="post">
                     @csrf
                     <button class="header__logout">ログアウト</button>
                 </form>
             </li>
-            @else
-            <li><a href="/login">ログイン</a></li>
             @endif
         </ul>
     </nav>

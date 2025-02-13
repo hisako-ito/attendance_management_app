@@ -96,8 +96,6 @@ class AttendanceController extends Controller
 
     public function attendanceShow($year = null, $month = null)
     {
-        $user = Auth::user();
-
         $currentDate = Carbon::now();
         $year = $year ?? $currentDate->year;
         $month = $month ?? $currentDate->month;
@@ -105,14 +103,13 @@ class AttendanceController extends Controller
         $startOfMonth = Carbon::create($year, $month, 1)->startOfMonth();
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
 
-        $attendances = Attendance::with('breaks')
-            ->where('user_id', $user->id)
+        $attendances = Attendance::with('user', 'breaks')
             ->whereBetween('date', [$startOfMonth, $endOfMonth])->get();
 
         $previousMonth = $startOfMonth->copy()->subMonth();
         $nextMonth = $startOfMonth->copy()->addMonth();
 
-        return view('attendance_list', [
+        return view('attendances_list', [
             'attendances' => $attendances,
             'currentMonth' => $startOfMonth,
             'previousMonth' => $previousMonth,

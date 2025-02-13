@@ -7,11 +7,9 @@
 @endsection
 
 @section('content')
-<header class="header">
-    <div class="header__logo">
-        <img src="{{ asset('img/logo.svg') }}" alt="ロゴ">
-    </div>
-</header>
+
+@include('components.header')
+
 <form action="{{ route('admin.login') }}" method="post" class="authenticate center">
     @csrf
     <h1 class="page__title">管理者ログイン</h1>

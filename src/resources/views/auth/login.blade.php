@@ -7,12 +7,14 @@
 @endsection
 
 @section('content')
+
 <header class="header">
     <div class="header__logo">
         <img src="{{ asset('img/logo.svg') }}" alt="ロゴ">
     </div>
 </header>
-<form action="/login" method="post" class="authenticate center">
+
+<form action="/login" method="post" class="center">
     @csrf
     <h1 class="page__title">ログイン</h1>
     <label for="mail" class="entry__name">メールアドレス</label>
