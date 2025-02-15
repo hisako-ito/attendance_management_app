@@ -13,7 +13,7 @@ class AdminAttendanceController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:admins');
+        $this->middleware('admin');
     }
 
     public function adminAttendanceShow($year = null, $month = null, $day = null)

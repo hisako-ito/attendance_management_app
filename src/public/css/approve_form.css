@@ -1,0 +1,12 @@
+.form__item-input {
+    border: none;
+}
+
+.form__textarea {
+    border: none;
+}
+
+.btn-approved {
+    background: #696969;
+    cursor: not-allowed;
+}

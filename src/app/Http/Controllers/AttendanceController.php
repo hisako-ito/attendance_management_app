@@ -10,6 +10,11 @@ use Illuminate\Support\Carbon;
 
 class AttendanceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $user = Auth::user();
@@ -96,6 +101,7 @@ class AttendanceController extends Controller
 
     public function attendanceShow($year = null, $month = null)
     {
+        $user = Auth::user();
         $currentDate = Carbon::now();
         $year = $year ?? $currentDate->year;
         $month = $month ?? $currentDate->month;
@@ -103,7 +109,8 @@ class AttendanceController extends Controller
         $startOfMonth = Carbon::create($year, $month, 1)->startOfMonth();
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
 
-        $attendances = Attendance::with('user', 'breaks')
+        $attendances = Attendance::with('breaks')
+            ->where('user_id', $user->id)
             ->whereBetween('date', [$startOfMonth, $endOfMonth])->get();
 
         $previousMonth = $startOfMonth->copy()->subMonth();

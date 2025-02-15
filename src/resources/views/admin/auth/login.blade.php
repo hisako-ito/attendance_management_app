@@ -8,7 +8,11 @@
 
 @section('content')
 
-@include('components.header')
+<header class="header">
+    <div class="header__logo">
+        <img src="{{ asset('img/logo.svg') }}" alt="ロゴ">
+    </div>
+</header>
 
 <form action="{{ route('admin.login') }}" method="post" class="authenticate center">
     @csrf

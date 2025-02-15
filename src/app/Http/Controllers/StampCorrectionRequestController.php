@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Attendance;
+use App\Models\BreakTime;
 use App\Models\AttendanceCorrectionRequest;
 use App\Models\BreakCorrectionRequest;
 use App\Http\Requests\StampCorrectionRequest;
@@ -13,21 +14,15 @@ use Illuminate\Support\Carbon;
 
 class StampCorrectionRequestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function stampCorrectionRequestCreate($attendance_id)
     {
         $attendance = Attendance::with('user', 'breaks', 'attendanceCorrectionRequests')->findOrFail($attendance_id);
         $user = $attendance->user;
-
-        // 管理者か一般ユーザーか判定
-        if (auth('admins')->check()) {
-            // 管理者用の処理
-            return view('admin.attendance_detail_admin', compact('user', 'attendance'));
-        } elseif (auth('web')->check()) {
-            // 一般ユーザー用の処理
-            return view('attendance_detail_user', compact('user', 'attendance'));
-        } else {
-            abort(403, 'アクセス権限がありません');
-        }
 
         return view('attendance_detail', compact('user', 'attendance'));
     }
@@ -47,42 +42,92 @@ class StampCorrectionRequestController extends Controller
             return back()->withErrors(['date' => '日付の形式が正しくありません。']);
         }
 
-        $correctionRequest = AttendanceCorrectionRequest::create([
-            'attendance_id' => $attendance_id,
-            'user_id' => $user->id,
-            'date' => $date,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'reason' => $request->reason,
-        ]);
+        if (auth('web')->check()) {
+            $correctionRequest = AttendanceCorrectionRequest::create([
+                'attendance_id' => $attendance_id,
+                'user_id' => $user->id,
+                'date' => $date,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'reason' => $request->reason,
+            ]);
 
-        if (!empty($request->break_start) && is_array($request->break_start)) {
-            foreach ($request->break_start as $key => $breakStart) {
-                if (!empty($breakStart) && !empty($request->break_end[$key] ?? '')) {
-                    BreakCorrectionRequest::create([
-                        'attendance_correction_request_id' => $correctionRequest->id,
-                        'break_start' => $breakStart,
-                        'break_end' => $request->break_end[$key] ?? '',
-                    ]);
+            if (!empty($request->break_start) && is_array($request->break_start)) {
+                foreach ($request->break_start as $key => $breakStart) {
+                    if (!empty($breakStart) && !empty($request->break_end[$key] ?? '')) {
+                        BreakCorrectionRequest::create([
+                            'attendance_correction_request_id' => $correctionRequest->id,
+                            'break_start' => $breakStart,
+                            'break_end' => $request->break_end[$key] ?? '',
+                        ]);
+                    }
                 }
             }
-        }
+            return redirect()->route('attendance.detail', ['id' => $attendance_id])->with('message', '勤怠修正依頼が完了しました')->withInput();
+        } elseif (auth('admin')->check()) {
+            $attendance = Attendance::findOrFail($attendance_id);
+            $breakTimes = BreakTime::where('attendance_id', $attendance_id)->get();
+            $attendance->update([
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'admin_id' => $user->id,
+                'reason' => $request->reason,
+            ]);
 
-        return redirect("/attendance/{$attendance_id}")->with('message', '勤怠修正依頼が完了しました')->withInput();
+            if (!empty($request->break_start) && is_array($request->break_start)) {
+                $breakTimes->each(function ($breakTime, $key) use ($request) {
+                    if (!empty($request->break_start[$key]) && !empty($request->break_end[$key])) {
+                        $breakTime->update([
+                            'break_start' => $request->break_start[$key],
+                            'break_end' => $request->break_end[$key],
+                        ]);
+                    }
+                });
+            }
+
+            return redirect()->route('attendance.detail', ['id' => $attendance_id])->with('message', '勤怠修正が完了しました')->withInput();
+        } else {
+            abort(403, 'アクセス権限がありません');
+        }
     }
 
     public function stampCorrectionRequestShow(Request $request)
     {
-        $user = Auth::user();
-        $requests = AttendanceCorrectionRequest::where('user_id', $user->id)->get();
-        $tab = $request->query('tab', 'pending_approval');
+        if (auth('web')->check()) {
+            $user = Auth::user();
+            $tab = $request->query('tab', 'pending_approval');
 
-        if ($tab === 'approved') {
-            $requests = AttendanceCorrectionRequest::where('is_approved', true)->get();
+            if ($tab === 'approved') {
+                $requests = AttendanceCorrectionRequest::where('user_id', $user->id)
+                    ->where('is_approved', true)
+                    ->get();
+            } elseif ($tab === 'pending_approval') {
+                $requests = AttendanceCorrectionRequest::where('user_id', $user->id)
+                    ->where('is_approved', false)
+                    ->get();
+            } else {
+                $requests = collect();
+            }
+
+            return view('request_list_user', compact('user', 'requests', 'tab'));
+        } elseif (auth('admin')->check()) {
+            $tab = $request->query('tab', 'pending_approval');
+
+            if ($tab === 'approved') {
+                $requests = AttendanceCorrectionRequest::with('user')
+                    ->where('is_approved', true)
+                    ->get();
+            } elseif ($tab === 'pending_approval') {
+                $requests = AttendanceCorrectionRequest::with('user')
+                    ->where('is_approved', false)
+                    ->get();
+            } else {
+                $requests = collect();
+            }
+
+            return view('admin.request_list_admin', compact('requests', 'tab'));
         } else {
-            $requests = AttendanceCorrectionRequest::where('is_approved', false)->get();
+            abort(403, 'アクセス権限がありません');
         }
-
-        return view('request_list', compact('user', 'requests', 'tab'));
     }
 }

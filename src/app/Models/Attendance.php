@@ -15,6 +15,8 @@ class Attendance extends Model
         'date',
         'start_time',
         'end_time',
+        'admin_id',
+        'reason',
     ];
 
     protected $casts = [
@@ -24,6 +26,11 @@ class Attendance extends Model
     ];
 
     public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function admin()
     {
         return $this->belongsTo(User::class);
     }

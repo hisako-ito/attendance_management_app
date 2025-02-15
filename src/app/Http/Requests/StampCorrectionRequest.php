@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StampCorrectionRequest extends FormRequest
 {
@@ -23,9 +24,10 @@ class StampCorrectionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'start_time' => 'required|date_format:H:i|before:end_time',
             'end_time' => 'required|date_format:H:i|after:start_time',
+            'reason' => 'required',
             'break_start.*' => [
                 'nullable',
                 'date_format:H:i',
@@ -37,7 +39,6 @@ class StampCorrectionRequest extends FormRequest
                     }
                 },
             ],
-
             'break_end.*' => [
                 'nullable',
                 'date_format:H:i',
@@ -48,8 +49,9 @@ class StampCorrectionRequest extends FormRequest
                     }
                 },
             ],
-            'reason' => 'required',
         ];
+
+        return $rules;
     }
 
     public function messages()

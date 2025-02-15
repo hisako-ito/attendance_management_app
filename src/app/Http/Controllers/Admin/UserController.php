@@ -10,6 +10,11 @@ use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     public function userListShow()
     {
         $users = User::all();
