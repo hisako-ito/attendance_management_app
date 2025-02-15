@@ -175,17 +175,115 @@ a {
     color: #000;
 }
 
+.form__table {
+    margin-top: 50px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.form__row {
+    border-bottom: 2px solid #E1E1E1;
+}
+
+.form__label,
+.form__data {
+    padding: 32px 8px;
+    font-size: 1rem;
+    color: #737373;
+    font-weight: bold;
+}
+
+.form__label {
+    text-align: left;
+    padding: 0;
+    width: 30%;
+}
+
+.form__data {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form__label:first-of-type,
+.form__data:first-of-type {
+    padding-left: 48px;
+}
+
+.form__label:last-of-type,
+.form__data:last-of-type {
+    padding-right: 48px;
+}
+
+.form__item {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__item-inputs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form__item-inputs span {
+    color: #000;
+    display: block;
+    padding: 8px;
+}
+
+.form__item-input {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid #E1E1E1;
+    padding: 8px 16px;
+    width: 100px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.form__data--name {
+    color: #000;
+    padding-left: 5%;
+}
+
+.form__item-input--date {
+    border: none
+}
+
+.form__textarea {
+    border: 1px solid #E1E1E1;
+    padding: 8px 16px;
+    height: 100px;
+    resize: none;
+    border-radius: 4px;
+    width: 60%;
+}
+
+.form__btn-inner {
+    margin-top: 30px;
+    display: flex;
+    justify-content: end;
+}
+
+.form__btn {
+    width: 15%;
+    font-size: 1.2rem;
+}
+
 /* レスポンシブ (768px以上)*/
 @media screen and (min-width: 768px) {
     .header__logo {
         width: 25vw;
     }
 
-    .correction-request-form__label {
+    .form__label {
         white-space: nowrap;
     }
 
-    .correction-request-form__item-inputs {
+    .form__item-inputs {
         width: 60%;
     }
 }

@@ -24,7 +24,7 @@ class AdminLoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('admins')->attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended('/admin/attendance/list');
         }
@@ -34,7 +34,7 @@ class AdminLoginController extends Controller
 
     public function adminLogout(Request $request): RedirectResponse
     {
-        Auth::guard('admins')->logout();
+        Auth::guard('admin')->logout();
 
         $request->session()->invalidate();
 

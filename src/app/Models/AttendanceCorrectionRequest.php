@@ -38,7 +38,7 @@ class AttendanceCorrectionRequest extends Model
 
     public function breakCorrectionRequests()
     {
-        return $this->hasMany(BreakTime::class);
+        return $this->hasMany(BreakCorrectionRequest::class, 'attendance_correction_request_id');
     }
 
     public function isApproved()

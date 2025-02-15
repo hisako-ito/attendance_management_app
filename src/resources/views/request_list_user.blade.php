@@ -37,7 +37,7 @@
                 <td class="list-table__data">{{ $request->reason }}</td>
                 <td class="list-table__data">{{ $request->created_at->isoformat('YYYY/MM/DD') }}</td>
                 <td class="list-table__data">
-                    <a class="list-table__detail-btn" href="/attendance/{{$request->attendance_id}}">詳細</a>
+                    <a class="list-table__detail-btn" href="{{ route('attendance.detail', ['id' => $request->attendance_id]) }}">詳細</a>
                 </td>
             </tr>
             @endforeach
