@@ -47,10 +47,10 @@
                     <td class="form__data">
                         <div class="form__item">
                             <div class="form__item-inputs">
-                                <input class="form__item-input" type="text" name="start_time" value="{{ old('start_time', \Carbon\Carbon::parse($correctionRequest->start_time)->format('H:i')) }}" readonly>
+                                <input class="form__item-input" type="text" name="start_time" value="{{ \Carbon\Carbon::parse($correctionRequest->start_time)->format('H:i') }}" readonly>
                                 <span>〜</span>
                                 <input class="form__item-input {{ $errors->has('end_time') ? 'is-valid' : '' }}" type="text" name="end_time"
-                                    value="{{ !empty($correctionRequest->end_time) ? old('end_time',\Carbon\Carbon::parse($correctionRequest->end_time)->format('H:i')) : '' }}" readonly>
+                                    value="{{ !empty($correctionRequest->end_time) ? \Carbon\Carbon::parse($correctionRequest->end_time)->format('H:i') : '' }}" readonly>
                             </div>
                         </div>
                     </td>
@@ -67,7 +67,7 @@
                                     value="{{ old('break_start.' . $index, \Carbon\Carbon::parse($breakCorrectionRequest->break_start)->format('H:i')) }}" readonly>
                                 <span>〜</span>
                                 <input class="form__item-input {{ $errors->has('break_end.' . $index) ? 'is-valid' : '' }}" type="text" name="break_end[]"
-                                    value="{{ old('break_end.' . $index, !empty($breakCorrectionRequest->break_end) ? \Carbon\Carbon::parse($breakCorrectionRequest->break_end)->format('H:i') : '') }}" readonly>
+                                    value="{{ !empty($breakCorrectionRequest->break_end) ? \Carbon\Carbon::parse($breakCorrectionRequest->break_end)->format('H:i') : '' }}" readonly>
                             </div>
                         </div>
                     </td>

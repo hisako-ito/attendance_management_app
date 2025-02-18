@@ -13,16 +13,18 @@
 <div class="container">
     <div class="container__inner">
         @include('components.heading', ['title' => $selectedDate->format('Y年n月j日') . 'の勤怠'])
-        <div class="date-navigation">
-            <div class="date-navigation__content date-previous">
+        <div class="date-nav">
+            <div class="date-nav__item date-previous">
                 <a href="{{ route('admin.attendance.list', ['year' => $previousDate->year, 'month' => $previousDate->month,
                 'day' => $previousDate->day]) }}" class="date-link"><i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
                     前日</a>
             </div>
-            <div class="date-navigation__content   date-current"><i class="far fa-calendar-alt" style="color: #4B4B4B; margin-right: 5px;"></i>{{ $selectedDate->format('Y/m/d') }}</div>
-            <div class="date-navigation__content  date-next">
+            <div class="date-nav__item date-current"><i class="far fa-calendar-alt" style="color: #4B4B4B; margin-right: 5px;"></i>{{ $selectedDate->format('Y/m/d') }}</div>
+            <div class="date-nav__item date-next">
+                @if (!$selectedDate->isToday())
                 <a href="{{ route('admin.attendance.list', ['year' => $nextDate->year, 'month' => $nextDate->month, 'day' => $nextDate->day]) }}" class="date-link  next-link">翌日<i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
                 </a>
+                @endif
             </div>
         </div>
 

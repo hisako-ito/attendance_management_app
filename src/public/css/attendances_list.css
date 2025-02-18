@@ -1,15 +1,16 @@
-.date-navigation {
+.date-nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-radius: 10px;
     background-color: #fff;
     padding: 16px 24px;
     margin-top: 50px;
 }
 
-.date-navigation__content {
+.date-nav__item {
     position: relative;
-    width: 110px;
+    width: 120px;
     display: flex;
     align-items: center;
 }
@@ -20,20 +21,34 @@
     font-weight: bold;
 }
 
-.date-link {
-    position: absolute;
-    height: 32px;
-    width: 110px;
+.date-previous,
+.date-next {
+    width: 80px;
 }
 
-.date-navigation__content a {
+.date-link {
+    position: absolute;
+    width: 100%;
+    display: flex;
+}
+
+.date-next a {
+    justify-content: flex-end;
+}
+
+.date-nav__item a {
     color: #737373;
     font-weight: bold;
     display: flex;
     align-items: center;
-    display: block;
 }
 
-.next-link {
-    text-align: right;
+.date-next {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.date-next__inner {
+    position: absolute;
 }

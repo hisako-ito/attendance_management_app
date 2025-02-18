@@ -35,7 +35,7 @@
         </div>
         <div class="attendance__date">
             <h2 class="today-date">{{ $today->isoFormat('Y年M月D日(ddd)') }}</h2>
-            <h3 class="present-time">{{ $today->format('H:i') }}</h3>
+            <h3 class="current-time"><livewire:current-time /></h3>
         </div>
         <div class="attendance__panel">
             @if (!$attendance)

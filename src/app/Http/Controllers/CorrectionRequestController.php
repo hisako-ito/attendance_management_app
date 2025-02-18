@@ -4,33 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Attendance;
 use App\Models\BreakTime;
 use App\Models\AttendanceCorrectionRequest;
 use App\Models\BreakCorrectionRequest;
-use App\Http\Requests\StampCorrectionRequest;
+use App\Http\Requests\CorrectionRequest;
 use Illuminate\Support\Carbon;
 
-class StampCorrectionRequestController extends Controller
+class CorrectionRequestController extends Controller
 {
-    public function __construct()
+    public function showCorrectionRequestForm($attendance_id)
     {
-        $this->middleware('auth');
-    }
+        $attendance = Attendance::with('user', 'breaks', 'attendanceCorrectionRequests')
+            ->findOrFail($attendance_id);
 
-    public function stampCorrectionRequestCreate($attendance_id)
-    {
-        $attendance = Attendance::with('user', 'breaks', 'attendanceCorrectionRequests')->findOrFail($attendance_id);
         $user = $attendance->user;
+        $latestCorrectionRequest = $attendance
+            ->attendanceCorrectionRequests
+            ->sortByDesc('created_at')
+            ->first();
 
-        return view('attendance_detail', compact('user', 'attendance'));
+        return view('attendance_detail', compact('user', 'attendance', 'latestCorrectionRequest'));
     }
 
-    public function stampCorrectionRequestStore($attendance_id, StampCorrectionRequest $request)
+    public function storeCorrectionRequest($attendance_id, CorrectionRequest $request)
     {
         $user = Auth::user();
-        $attendance = Attendance::with('breaks')->find($attendance_id);
+        $attendance = Attendance::with('breaks')
+            ->find($attendance_id);
 
         $formattedDate = preg_replace('/\s+/', '', $request->date1) . preg_replace('/\s+/', '', $request->date2);
         $formattedDate = mb_convert_encoding($formattedDate, 'UTF-8', 'auto');
@@ -91,41 +92,41 @@ class StampCorrectionRequestController extends Controller
         }
     }
 
-    public function stampCorrectionRequestShow(Request $request)
+    public function showCorrectionRequest(Request $request)
     {
         if (auth('web')->check()) {
             $user = Auth::user();
             $tab = $request->query('tab', 'pending_approval');
 
             if ($tab === 'approved') {
-                $requests = AttendanceCorrectionRequest::where('user_id', $user->id)
+                $correctionRequests = AttendanceCorrectionRequest::where('user_id', $user->id)
                     ->where('is_approved', true)
                     ->get();
             } elseif ($tab === 'pending_approval') {
-                $requests = AttendanceCorrectionRequest::where('user_id', $user->id)
+                $correctionRequests = AttendanceCorrectionRequest::where('user_id', $user->id)
                     ->where('is_approved', false)
                     ->get();
             } else {
-                $requests = collect();
+                $correctionRequests = collect();
             }
 
-            return view('request_list_user', compact('user', 'requests', 'tab'));
+            return view('request_list_user', compact('user', 'correctionRequests', 'tab'));
         } elseif (auth('admin')->check()) {
             $tab = $request->query('tab', 'pending_approval');
 
             if ($tab === 'approved') {
-                $requests = AttendanceCorrectionRequest::with('user')
+                $correctionRequests = AttendanceCorrectionRequest::with('user')
                     ->where('is_approved', true)
                     ->get();
             } elseif ($tab === 'pending_approval') {
-                $requests = AttendanceCorrectionRequest::with('user')
+                $correctionRequests = AttendanceCorrectionRequest::with('user')
                     ->where('is_approved', false)
                     ->get();
             } else {
-                $requests = collect();
+                $correctionRequests = collect();
             }
 
-            return view('admin.request_list_admin', compact('requests', 'tab'));
+            return view('admin.request_list_admin', compact('correctionRequests', 'tab'));
         } else {
             abort(403, 'アクセス権限がありません');
         }

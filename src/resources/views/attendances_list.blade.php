@@ -13,19 +13,19 @@
 <div class="container">
     <div class="container__inner">
         @include('components.heading', ['title' => '勤怠一覧'])
-        <div class="date-navigation">
-            <div class="date-navigation__content date-previous"><a href="{{ route('attendance.list', [
+        <div class="date-nav">
+            <div class="date-nav__item date-previous">
+                <a href="{{ route('attendance.list', [
                 'year' => $previousMonth->year, 'month' => $previousMonth->month]) }}" class="date-link"><i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
                     前月</a>
             </div>
-            <div class="date-navigation__content   date-current"><i class="far fa-calendar-alt" style="color: #4B4B4B; margin-right: 5px;"></i>{{ $currentMonth->format('Y/m') }}</div>
-            <div class="date-navigation__content  date-next">
+            <div class="date-nav__item date-current"><i class="far fa-calendar-alt" style="color: #4B4B4B; margin-right: 5px;"></i>{{ $currentMonth->format('Y/m') }}</div>
+            <div class="date-nav__item date-next">
                 <a href="{{ route('attendance.list', ['year' => $nextMonth->year,
-                'month' => $nextMonth->month]) }}" class="date-link  next-link">翌月<i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+                    'month' => $nextMonth->month]) }}" class="date-link next-link">翌月<i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
                 </a>
             </div>
         </div>
-
         <table class="list-table">
             <tr class="list-table__header-row">
                 <th class="list-table__label">日付</th>

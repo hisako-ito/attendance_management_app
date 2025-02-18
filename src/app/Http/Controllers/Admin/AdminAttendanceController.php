@@ -5,18 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 
 class AdminAttendanceController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
-    public function adminAttendanceShow($year = null, $month = null, $day = null)
+    public function showAdminAttendance($year = null, $month = null, $day = null)
     {
         $currentDate = Carbon::now();
         $year = $year ?? $currentDate->year;
@@ -30,15 +24,16 @@ class AdminAttendanceController extends Controller
         $previousDate = $selectedDate->copy()->subDay();
         $nextDate = $selectedDate->copy()->addDay();
 
-        return view('admin.attendances_list', [
+        return view('admin.attendances_list_admin', [
             'attendances' => $attendances,
             'selectedDate' => $selectedDate,
             'previousDate' => $previousDate,
             'nextDate' => $nextDate,
+            'tody' => $currentDate
         ]);
     }
 
-    public function userAttendanceShow($id, $year = null, $month = null)
+    public function showUserAttendance($id, $year = null, $month = null)
     {
         $currentDate = Carbon::now();
         $year = $year ?? $currentDate->year;

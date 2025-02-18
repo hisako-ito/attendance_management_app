@@ -19,7 +19,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('web')->attempt($credentials)) {
-            return redirect()->route('attendance.index');
+            return redirect()->route('attendance.index')->with('message', 'ログインしました');
         }
 
         return back()->withErrors(['email' => 'ログイン情報が正しくありません']);
@@ -28,6 +28,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::guard('web')->logout();
-        return redirect('/login');
+        return redirect('/login')->with('message', 'ログアウトしました');
     }
 }

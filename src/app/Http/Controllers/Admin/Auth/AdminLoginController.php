@@ -26,7 +26,7 @@ class AdminLoginController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/admin/attendance/list');
+            return redirect('/admin/attendance/list')->with('message', 'ログインしました');;
         }
 
         return back()->withErrors(['email' => 'ログイン情報が正しくありません']);
@@ -40,6 +40,6 @@ class AdminLoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        return redirect('/admin/login')->with('message', 'ログアウトしました');
     }
 }

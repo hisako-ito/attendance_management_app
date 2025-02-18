@@ -99,7 +99,7 @@ class AttendanceController extends Controller
         return redirect()->route('attendance.index')->with('message', '退勤しました');
     }
 
-    public function attendanceShow($year = null, $month = null)
+    public function showAttendance($year = null, $month = null)
     {
         $user = Auth::user();
         $currentDate = Carbon::now();
