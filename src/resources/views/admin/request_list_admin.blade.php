@@ -29,15 +29,15 @@
                 <th class="list-table__label">申請日時</th>
                 <th class="list-table__label">詳細</th>
             </tr>
-            @foreach($requests as $request)
+            @foreach($correctionRequests as $correctionRequest)
             <tr class="list-table__row">
-                <td class="list-table__data">{{ $request->is_approved ? '承認済み' : '承認待ち' }}</td>
-                <td class="list-table__data">{{ $request->user->name }}</td>
-                <td class="list-table__data">{{ $request->date->isoformat('YYYY/MM/DD') }}</td>
-                <td class="list-table__data">{{ $request->reason }}</td>
-                <td class="list-table__data">{{ $request->created_at->isoformat('YYYY/MM/DD') }}</td>
+                <td class="list-table__data">{{ $correctionRequest->is_approved ? '承認済み' : '承認待ち' }}</td>
+                <td class="list-table__data">{{ $correctionRequest->user->name }}</td>
+                <td class="list-table__data">{{ $correctionRequest->date->isoformat('YYYY/MM/DD') }}</td>
+                <td class="list-table__data">{{ $correctionRequest->reason }}</td>
+                <td class="list-table__data">{{ $correctionRequest->created_at->isoformat('YYYY/MM/DD') }}</td>
                 <td class="list-table__data">
-                    <a class="list-table__detail-btn" href="{{ route('request.approve', ['id' => $request->id]) }}">詳細</a>
+                    <a class="list-table__detail-btn" href="{{ route('request.approve', ['id' => $correctionRequest->id]) }}">詳細</a>
                 </td>
             </tr>
             @endforeach

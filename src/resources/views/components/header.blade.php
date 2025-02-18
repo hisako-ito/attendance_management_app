@@ -6,7 +6,7 @@
         <ul>
             @if (Auth::guard('admin')->check())
             <li><a href="{{ route('admin.attendance.list') }}">勤怠一覧</a></li>
-            <li><a href="/admin/staff/list">スタッフ一覧</a></li>
+            <li><a href="{{ route('users.list') }}">スタッフ一覧</a></li>
             <li><a href="{{ route('requests.list') }}">申請一覧</a></li>
             <li>
                 <form action="/admin/logout" method="post">

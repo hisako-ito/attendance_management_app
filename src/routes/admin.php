@@ -23,7 +23,7 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('admin')->middleware(['auth:admin'])->group(function () {
-    Route::get('/attendance/list/{year?}/{month?}/{day?}', [AdminAttendanceController::class, 'adminAttendanceShow'])->name('admin.attendance.list');
-    Route::get('/attendance/staff/{id}/{year?}/{month?}', [AdminAttendanceController::class, 'userAttendanceShow'])->name('user.attendance.list');
-    Route::get('/staff/list', [UserController::class, 'userListShow']);
+    Route::get('/attendance/list/{year?}/{month?}/{day?}', [AdminAttendanceController::class, 'showAdminAttendance'])->name('admin.attendance.list');
+    Route::get('/attendance/staff/{id}/{year?}/{month?}', [AdminAttendanceController::class, 'showUserAttendance'])->name('user.attendance.list');
+    Route::get('/staff/list', [UserController::class, 'showUserList'])->name('users.list');
 });

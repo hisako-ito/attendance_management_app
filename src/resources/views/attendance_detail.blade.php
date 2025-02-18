@@ -110,10 +110,12 @@
             <div class="form__btn-inner">
                 @if (Auth::guard('admin')->check())
                 <button type="submit" class="form__btn btn">修正</button>
-                @elseif ($attendance->attendanceCorrectionRequests->isNotEmpty() && optional($attendance->attendanceCorrectionRequests->first())->isApproved() === false)
+                @else
+                @if ($latestCorrectionRequest && $latestCorrectionRequest->is_approved === false)
                 <p class="correction-requested-message">*承認待ちのため修正はできません。</p>
                 @else
                 <button type="submit" class="form__btn btn">修正</button>
+                @endif
                 @endif
             </div>
         </form>

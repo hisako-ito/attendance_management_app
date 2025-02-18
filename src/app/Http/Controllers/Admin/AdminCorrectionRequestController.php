@@ -8,11 +8,11 @@ use App\Models\Attendance;
 use App\Models\BreakTime;
 use App\Models\AttendanceCorrectionRequest;
 
-class AdminStampCorrectionRequestController extends Controller
+class AdminCorrectionRequestController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('auth:admin');
     }
 
     public function showRequestApprove($id)
