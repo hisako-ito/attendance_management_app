@@ -3,7 +3,7 @@
 ## 環境構築
 
 ### Dockerビルド
-1. `git clone git@github.com:hisako-ito/flea_market_app.git`
+1. `git clone git@github.com:hisako-ito/attendance_management_app.git`
 2. DockerDesktopアプリを立ち上げる
 3. `docker-compose up -d --build`
 
