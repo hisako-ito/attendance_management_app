@@ -71,7 +71,7 @@ php artisan config:cache
 * MySQL 15.1
 
 ## ER図
-![flea_market_app](https://github.com/user-attachments/assets/49d0b230-cc4b-48fc-babf-6bc46a64ba4f)
+
 
 
 ## URL
