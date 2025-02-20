@@ -74,7 +74,7 @@
                         <div class="form__item">
                             <div class="form__item-inputs">
                                 <input class="form__item-input" type="text" name="break_start[]"
-                                    value="{{ old('break_start.' . $index, \Carbon\Carbon::parse($break->break_start)->format('H:i')) }}">
+                                    value="{{ old('break_start.' . $index, !empty($break->break_start) ? \Carbon\Carbon::parse($break->break_start)->format('H:i') : '') }}">
                                 <span>〜</span>
                                 <input class="form__item-input {{ $errors->has('break_end.' . $index) ? 'is-valid' : '' }}" type="text" name="break_end[]"
                                     value="{{ old('break_end.' . $index, !empty($break->break_end) ? \Carbon\Carbon::parse($break->break_end)->format('H:i') : '') }}">

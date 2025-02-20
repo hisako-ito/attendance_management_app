@@ -90,10 +90,21 @@ class AttendanceController extends Controller
         $attendance = Attendance::where('user_id', $user->id)
             ->where('date', $today->format('Y-m-d'))
             ->first();
+
         if ($attendance) {
             Attendance::where('id', $attendance->id)->update(
                 ['end_time' => Carbon::now()]
             );
+        }
+
+        $breakTime = BreakTime::where('attendance_id', $attendance->id)->exists();
+
+        if (!$breakTime) {
+            BreakTime::create([
+                'attendance_id' => $attendance->id,
+                'break_start' => null,
+                'break_end' => null,
+            ]);
         }
 
         return redirect()->route('attendance.index')->with('message', '退勤しました');

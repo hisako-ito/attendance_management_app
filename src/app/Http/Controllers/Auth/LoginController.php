@@ -24,10 +24,4 @@ class LoginController extends Controller
 
         return back()->withErrors(['email' => 'ログイン情報が正しくありません']);
     }
-
-    public function logout()
-    {
-        Auth::guard('web')->logout();
-        return redirect('/login')->with('message', 'ログアウトしました');
-    }
 }

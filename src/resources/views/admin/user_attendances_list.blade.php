@@ -32,33 +32,43 @@
             </div>
         </div>
 
-        <table class="list-table">
-            <tr class="list-table__header-row">
-                <th class="list-table__label">日付</th>
-                <th class="list-table__label">出勤</th>
-                <th class="list-table__label">退勤</th>
-                <th class="list-table__label">休憩</th>
-                <th class="list-table__label">合計</th>
-                <th class="list-table__label">詳細</th>
-            </tr>
-            @foreach($attendances as $attendance)
-            <tr class="list-table__row">
-                <td class="list-table__data">{{ $attendance->date->isoformat('MM/DD(ddd)') }}</td>
-                <td class="list-table__data">{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}</td>
-                <td class="list-table__data">
-                    @if ($attendance->end_time)
-                    {{ \Carbon\Carbon::parse($attendance->end_time)->format('H:i') }}
-                    @else
-                    @endif
-                </td>
-                <td class="list-table__data">{{ $attendance->totalBreakTime }}</td>
-                <td class="list-table__data">{{ $attendance->totalWorkTime }}</td>
-                <td class="list-table__data">
-                    <a class="list-table__detail-btn" href="{{ route('attendance.detail', ['id' => $attendance->id]) }}">詳細</a>
-                </td>
-            </tr>
-            @endforeach
-        </table>
+        <form action="{{ route('user.attendance.export', [
+                'id' => $user->id,
+                'year' => $currentMonth->year,
+                'month' => $currentMonth->month
+                ]) }}" method="GET">
+            @csrf
+            <table class="list-table">
+                <tr class="list-table__header-row">
+                    <th class="list-table__label">日付</th>
+                    <th class="list-table__label">出勤</th>
+                    <th class="list-table__label">退勤</th>
+                    <th class="list-table__label">休憩</th>
+                    <th class="list-table__label">合計</th>
+                    <th class="list-table__label">詳細</th>
+                </tr>
+                @foreach($attendances as $attendance)
+                <tr class="list-table__row">
+                    <td class="list-table__data">{{ $attendance->date->isoformat('MM/DD(ddd)') }}</td>
+                    <td class="list-table__data">{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}</td>
+                    <td class="list-table__data">
+                        @if ($attendance->end_time)
+                        {{ \Carbon\Carbon::parse($attendance->end_time)->format('H:i') }}
+                        @else
+                        @endif
+                    </td>
+                    <td class="list-table__data">{{ $attendance->totalBreakTime }}</td>
+                    <td class="list-table__data">{{ $attendance->totalWorkTime }}</td>
+                    <td class="list-table__data">
+                        <a class="list-table__detail-btn" href="{{ route('attendance.detail', ['id' => $attendance->id]) }}">詳細</a>
+                    </td>
+                </tr>
+                @endforeach
+            </table>
+            <div class="form__btn-inner">
+                <button type="submit" class="form__btn btn">CSV出力</button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
