@@ -41,7 +41,7 @@ class CorrectionRequest extends FormRequest
                     }
 
                     if ($break_end && strtotime($value) >= strtotime($break_end)) {
-                        $fail('休憩開始時間は休憩終了時間より前にしてください。');
+                        $fail('休憩開始時間もしくは休憩終了時間が不適切な値です。');
                     }
                 },
             ],
@@ -58,7 +58,7 @@ class CorrectionRequest extends FormRequest
                     }
 
                     if ($break_start && strtotime($value) <= strtotime($break_start)) {
-                        $fail('休憩終了時間は休憩開始時間より後にしてください。');
+                        $fail('休憩終了時間もしくは休憩開始時間が不適切な値です。');
                     }
                 },
             ],
@@ -74,6 +74,10 @@ class CorrectionRequest extends FormRequest
             'end_time.required' => '退勤時間を記入してください。',
             'end_time.date_format' => '退勤時間を「00:00」の形式で記入してください。',
             'end_time.after' => '出勤時間もしくは退勤時間が不適切な値です。',
+            'break_start.*.required' => '休憩開始時間を記入してください。',
+            'break_start.*.date_format' => '出勤時間を「00:00」の形式で記入してください。',
+            'break_end.*.required' => '休憩終了時間を記入してください。',
+            'break_end.*.date_format' => '休憩終了時間を「00:00」の形式で記入してください。',
             'reason.required' => '備考を記入してください。',
         ];
     }

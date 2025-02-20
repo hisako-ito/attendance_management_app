@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','会員登録')
+@section('title','メール認証')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/verify.css')  }}">

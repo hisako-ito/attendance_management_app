@@ -5,13 +5,8 @@ namespace App\Http\Controllers\Admin\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Hash;
-use App\Models\Admin;
-
 
 class AdminLoginController extends Controller
 {
@@ -30,16 +25,5 @@ class AdminLoginController extends Controller
         }
 
         return back()->withErrors(['email' => 'ログイン情報が正しくありません']);
-    }
-
-    public function adminLogout(Request $request): RedirectResponse
-    {
-        Auth::guard('admin')->logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/admin/login')->with('message', 'ログアウトしました');
     }
 }
