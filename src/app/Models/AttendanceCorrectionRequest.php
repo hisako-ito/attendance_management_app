@@ -21,8 +21,8 @@ class AttendanceCorrectionRequest extends Model
 
     protected $casts = [
         'date' => 'datetime',
-        'break_start' => 'string',
-        'break_end' => 'string',
+        'break_start' => 'datetime',
+        'break_end' => 'datetime',
         'is_approved' => 'boolean',
     ];
 

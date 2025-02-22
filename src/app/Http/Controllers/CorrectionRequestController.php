@@ -92,7 +92,7 @@ class CorrectionRequestController extends Controller
         }
     }
 
-    public function showCorrectionRequest(Request $request)
+    public function showCorrectionRequests(Request $request)
     {
         if (auth('web')->check()) {
             $user = Auth::user();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 use Illuminate\View\View;
 
 class AdminLoginController extends Controller
@@ -21,9 +22,9 @@ class AdminLoginController extends Controller
 
         if (Auth::guard('admin')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/admin/attendance/list')->with('message', 'ログインしました');;
+            return redirect(RouteServiceProvider::ADMIN_HOME)->with('message', 'ログインしました');
         }
 
-        return back()->withErrors(['email' => 'ログイン情報が正しくありません']);
+        return back()->withErrors(['email' => 'ログイン情報が登録されていません']);
     }
 }

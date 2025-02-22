@@ -35,9 +35,9 @@
                     <td class="form__data">
                         <div class="form__item">
                             <div class="form__item-inputs">
-                                <input class="form__item-input form__item-input--date" type="text" name="date1" value="{{  \Carbon\Carbon::parse($attendance->date)->format('Y年') }}" readonly>
+                                <input class="form__item-input form__item-input--date" type="text" name="date1" value="{{ $attendance->date->format('Y年') }}" readonly>
                                 <span style="visibility:hidden;">〜</span>
-                                <input class="form__item-input form__item-input--date" type="text" name="date2" value="{{ \Carbon\Carbon::parse($attendance->date)->format('n月j日') }}" readonly>
+                                <input class="form__item-input form__item-input--date" type="text" name="date2" value="{{ $attendance->date->format('n月j日') }}" readonly>
                             </div>
                         </div>
                     </td>
@@ -47,10 +47,10 @@
                     <td class="form__data">
                         <div class="form__item">
                             <div class="form__item-inputs">
-                                <input class="form__item-input" type="text" name="start_time" value="{{ old('start_time', \Carbon\Carbon::parse($attendance->start_time)->format('H:i')) }}">
+                                <input class="form__item-input" type="text" name="start_time" value="{{ old('start_time',$attendance->start_time->format('H:i')) }}">
                                 <span>〜</span>
                                 <input class="form__item-input {{ $errors->has('end_time') ? 'is-valid' : '' }}" type="text" name="end_time"
-                                    value="{{ !empty($attendance->end_time) ? old('end_time',\Carbon\Carbon::parse($attendance->end_time)->format('H:i')) : '' }}">
+                                    value="{{ !empty($attendance->end_time) ? old('end_time',$attendance->end_time->format('H:i')) : '' }}">
                             </div>
                             @if ($errors->has('start_time'))
                             <div class="form__error">
@@ -74,10 +74,10 @@
                         <div class="form__item">
                             <div class="form__item-inputs">
                                 <input class="form__item-input" type="text" name="break_start[]"
-                                    value="{{ old('break_start.' . $index, !empty($break->break_start) ? \Carbon\Carbon::parse($break->break_start)->format('H:i') : '') }}">
+                                    value="{{ old('break_start.' . $index, !empty($break->break_start) ? $break->break_start->format('H:i') : '') }}">
                                 <span>〜</span>
                                 <input class="form__item-input {{ $errors->has('break_end.' . $index) ? 'is-valid' : '' }}" type="text" name="break_end[]"
-                                    value="{{ old('break_end.' . $index, !empty($break->break_end) ? \Carbon\Carbon::parse($break->break_end)->format('H:i') : '') }}">
+                                    value="{{ old('break_end.' . $index, !empty($break->break_end) ? $break->break_end->format('H:i') : '') }}">
                             </div>
                             <div class="form__error">
                                 @if ($errors->has('break_start.' . $index))

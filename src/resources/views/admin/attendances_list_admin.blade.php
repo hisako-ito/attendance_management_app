@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','管理者トップページ')
+@section('title','管理者勤怠一覧')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/attendances_list.css')  }}">
@@ -19,7 +19,7 @@
                 'day' => $previousDate->day]) }}" class="date-link"><i class="fas fa-arrow-left" style="margin-right: 5px;"></i>
                     前日</a>
             </div>
-            <div class="date-nav__item date-current"><i class="far fa-calendar-alt" style="color: #4B4B4B; margin-right: 5px;"></i>{{ $selectedDate->format('Y/m/d') }}</div>
+            <div class="date-nav__item date-current"><i class="far fa-calendar-alt" style="color: #4B4B4B; margin-right: 5px; z-index: 1;"></i>{{ $selectedDate->format('Y/m/d') }}</div>
             <div class="date-nav__item date-next">
                 @if (!$selectedDate->isToday())
                 <a href="{{ route('admin.attendance.list', ['year' => $nextDate->year, 'month' => $nextDate->month, 'day' => $nextDate->day]) }}" class="date-link  next-link">翌日<i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
@@ -40,10 +40,10 @@
             @foreach($attendances as $attendance)
             <tr class="list-table__row">
                 <td class="list-table__data">{{ $attendance->user->name }}</td>
-                <td class="list-table__data">{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}</td>
+                <td class="list-table__data">{{ $attendance->start_time->format('H:i') }}</td>
                 <td class="list-table__data">
                     @if ($attendance->end_time)
-                    {{ \Carbon\Carbon::parse($attendance->end_time)->format('H:i') }}
+                    {{ $attendance->end_time->format('H:i') }}
                     @else
                     @endif
                 </td>

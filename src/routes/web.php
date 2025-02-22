@@ -46,7 +46,7 @@ Route::middleware(['auth:web', 'verified'])->group(function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::post('/attendance/clock-in', [AttendanceController::class, 'clockIn'])->name('attendance.clock-in');
     Route::post('/attendance/break-start', [AttendanceController::class, 'breakStart'])->name('attendance.break-start');
-    Route::post('/attendance/end-break', [AttendanceController::class, 'breakEnd'])->name('attendance.break-end');
+    Route::post('/attendance/break-end', [AttendanceController::class, 'breakEnd'])->name('attendance.break-end');
     Route::post('/attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
 
     Route::get('/attendance/list', [AttendanceController::class, 'showAttendance'])->name('attendance.list.default');
@@ -59,7 +59,7 @@ Route::middleware(['auth:admin,web', 'verified'])->group(function () {
     Route::post('/attendance/{id}', [CorrectionRequestController::class, 'storeCorrectionRequest'])
         ->name('attendance.detail.store');
 
-    Route::get('/stamp_correction_request/list', [CorrectionRequestController::class, 'showCorrectionRequest'])->name('requests.list');
+    Route::get('/stamp_correction_request/list', [CorrectionRequestController::class, 'showCorrectionRequests'])->name('requests.list');
 });
 
 Route::middleware(['auth:admin'])->group(function () {

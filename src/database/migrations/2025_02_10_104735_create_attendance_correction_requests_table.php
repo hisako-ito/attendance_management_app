@@ -18,8 +18,8 @@ class CreateAttendanceCorrectionRequestsTable extends Migration
             $table->foreignId('attendance_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->date('date');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
             $table->text('reason');
             $table->boolean('is_approved')->default(false);
             $table->timestamps();

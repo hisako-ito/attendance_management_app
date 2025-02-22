@@ -19,8 +19,8 @@ class CreateBreakCorrectionRequestsTable extends Migration
             $table->foreign('attendance_correction_request_id', 'break_attendance_fk')
                 ->references('id')->on('attendance_correction_requests')
                 ->cascadeOnDelete();
-            $table->time('break_start');
-            $table->time('break_end');
+            $table->dateTime('break_start');
+            $table->dateTime('break_end');
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','スタッフ別勤怠一覧画面')
+@section('title','スタッフ別勤怠一覧')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/attendances_list.css')  }}">
@@ -21,7 +21,7 @@
                 ]) }}" class="date-link">
                     <i class="fas fa-arrow-left" style="margin-right: 5px;"></i>前月</a>
             </div>
-            <div class="date-nav__item date-current"><i class="far fa-calendar-alt" style="color: #4B4B4B; margin-right: 5px;"></i>{{ $currentMonth->format('Y/m') }}</div>
+            <div class="date-nav__item date-current"><i class="far fa-calendar-alt" style="color: #4B4B4B; margin-right: 5px; z-index: 1;"></i>{{ $currentMonth->format('Y/m') }}</div>
             <div class="date-nav__item date-next">
                 <a href="{{ route('user.attendance.list', [
                     'id' => $user->id,
@@ -50,10 +50,10 @@
                 @foreach($attendances as $attendance)
                 <tr class="list-table__row">
                     <td class="list-table__data">{{ $attendance->date->isoformat('MM/DD(ddd)') }}</td>
-                    <td class="list-table__data">{{ \Carbon\Carbon::parse($attendance->start_time)->format('H:i') }}</td>
+                    <td class="list-table__data">{{ $attendance->start_time->format('H:i') }}</td>
                     <td class="list-table__data">
                         @if ($attendance->end_time)
-                        {{ \Carbon\Carbon::parse($attendance->end_time)->format('H:i') }}
+                        {{ $attendance->end_time->format('H:i') }}
                         @else
                         @endif
                     </td>

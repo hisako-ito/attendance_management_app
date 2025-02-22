@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','トップページ')
+@section('title','勤怠登録')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/index.css')  }}">
@@ -41,22 +41,26 @@
             @if (!$attendance)
             <form class="attendance__button" action="{{ route('attendance.clock-in') }}" method="POST">
                 @csrf
+                <input type="hidden" name="start_time" value="{{ now()->format('Y-m-d H:i:s') }}">
                 <button class="attendance__button-submit" type="submit">出勤</button>
             </form>
             @elseif ($attendance->start_time && !$attendance->end_time)
             @if ($breakTime && is_null($breakTime->break_end))
             <form class="attendance__button" action="{{ route('attendance.break-end') }}" method="POST">
                 @csrf
+                <input type="hidden" name="break_end" value="{{ now()->format('Y-m-d H:i:s') }}">
                 <button class="attendance__button-submit attendance__button-break" type="submit">休憩戻</button>
             </form>
             @else
             <div class="button-container">
                 <form class="attendance__button" action="{{ route('attendance.clock-out') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="end_time" value="{{ now()->format('Y-m-d H:i:s') }}">
                     <button class="attendance__button-submit" type="submit">退勤</button>
                 </form>
                 <form class="attendance__button" action="{{ route('attendance.break-start') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="break_start" value="{{ now()->format('Y-m-d H:i:s') }}">
                     <button class="attendance__button-submit attendance__button-break" type="submit">休憩入</button>
                 </form>
             </div>

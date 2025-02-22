@@ -33,18 +33,18 @@ class AttendanceController extends Controller
         return view('index', compact('today', 'attendance', 'breakTime'));
     }
 
-    public function clockIn()
+    public function clockIn(Request $request)
     {
         $user = Auth::user();
         $today = Carbon::today();
         Attendance::firstOrCreate(
             ['user_id' => $user->id, 'date' => $today->format('Y-m-d')],
-            ['start_time' => Carbon::now()]
+            ['start_time' => Carbon::parse($request->input('start_time', Carbon::now()))]
         );
         return redirect()->route('attendance.index')->with('message', '出勤しました');
     }
 
-    public function breakStart()
+    public function breakStart(Request $request)
     {
         $user = Auth::user();
         $today = Carbon::today();
@@ -55,14 +55,14 @@ class AttendanceController extends Controller
         BreakTime::create(
             [
                 'attendance_id' => $attendance->id,
-                'break_start' => Carbon::now()
+                'break_start' => Carbon::parse($request->input('break_start', Carbon::now()))
             ]
         );
 
         return redirect()->route('attendance.index')->with('message', '休憩に入りました');
     }
 
-    public function breakEnd()
+    public function breakEnd(Request $request)
     {
         $user = Auth::user();
         $today = Carbon::today();
@@ -76,14 +76,14 @@ class AttendanceController extends Controller
                 ->latest('break_start')
                 ->first() : null;
             if ($breakTime) {
-                $breakTime->update(['break_end' => Carbon::now()]);
+                $breakTime->update(['break_end' => Carbon::parse($request->input('break_end', Carbon::now()))]);
             }
         }
 
         return redirect()->route('attendance.index')->with('message', '休憩から戻りました');
     }
 
-    public function clockOut()
+    public function clockOut(Request $request)
     {
         $user = Auth::user();
         $today = Carbon::today();
@@ -93,7 +93,7 @@ class AttendanceController extends Controller
 
         if ($attendance) {
             Attendance::where('id', $attendance->id)->update(
-                ['end_time' => Carbon::now()]
+                ['end_time' => Carbon::parse($request->input('end_time', Carbon::now()))]
             );
         }
 
