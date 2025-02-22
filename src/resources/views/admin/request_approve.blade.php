@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','勤怠詳細')
+@section('title','修正申請承認')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/approve_form.css')  }}">

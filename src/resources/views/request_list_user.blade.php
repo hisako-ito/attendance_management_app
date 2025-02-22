@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','勤怠一覧')
+@section('title','申請一覧')
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('/css/requests_list.css')  }}">

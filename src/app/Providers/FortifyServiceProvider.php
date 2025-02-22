@@ -57,6 +57,7 @@ class FortifyServiceProvider extends ServiceProvider
             $admin = Admin::where('email', $request->email)->first();
 
             if ($admin && Hash::check($request->password, $admin->password)) {
+                Auth::guard('admin')->login($admin);
                 return $admin;
             }
 
@@ -67,7 +68,7 @@ class FortifyServiceProvider extends ServiceProvider
             return new class implements RegisterResponse {
                 public function toResponse($request)
                 {
-                    return redirect()->route('attendance.index');
+                    return redirect('/email/verify');
                 }
             };
         });

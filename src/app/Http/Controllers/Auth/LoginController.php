@@ -22,6 +22,6 @@ class LoginController extends Controller
             return redirect()->route('attendance.index')->with('message', 'ログインしました');
         }
 
-        return back()->withErrors(['email' => 'ログイン情報が正しくありません']);
+        return back()->withErrors(['email' => 'ログイン情報が登録されていません']);
     }
 }

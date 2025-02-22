@@ -21,8 +21,8 @@ class Attendance extends Model
 
     protected $casts = [
         'date' => 'datetime',
-        'start_time' => 'string',
-        'end_time' => 'string',
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
     ];
 
     public function user()
