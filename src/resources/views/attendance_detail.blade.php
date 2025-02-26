@@ -35,14 +35,14 @@
                     <td class="form__data">
                         <div class="form__item">
                             <div class="form__item-inputs">
-                                <input class="form__item-input form__item-input--date" type="text" name="date1" value="{{ $attendance->date->format('Y年') }}" readonly>
+                                <input class="form__item-input form__item-input--date" type="text" name="date1" value="{{ old('date1', $attendance->date->format('Y年')) }}" readonly>
                                 <span style="visibility:hidden;">〜</span>
-                                <input class="form__item-input form__item-input--date" type="text" name="date2" value="{{ $attendance->date->format('n月j日') }}" readonly>
+                                <input class="form__item-input form__item-input--date" type="text" name="date2" value="{{ old('date2', $attendance->date->format('n月j日')) }}" readonly>
                             </div>
                         </div>
                     </td>
                 </tr>
-                <tr class="form__row">
+                <tr class=" form__row">
                     <th class="form__label">出勤・退勤</th>
                     <td class="form__data">
                         <div class="form__item">

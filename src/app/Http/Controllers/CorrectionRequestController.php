@@ -10,6 +10,7 @@ use App\Models\AttendanceCorrectionRequest;
 use App\Models\BreakCorrectionRequest;
 use App\Http\Requests\CorrectionRequest;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class CorrectionRequestController extends Controller
 {
@@ -33,23 +34,33 @@ class CorrectionRequestController extends Controller
         $attendance = Attendance::with('breaks')
             ->find($attendance_id);
 
-        $formattedDate = preg_replace('/\s+/', '', $request->date1) . preg_replace('/\s+/', '', $request->date2);
-        $formattedDate = mb_convert_encoding($formattedDate, 'UTF-8', 'auto');
+        $formattedDate = trim($request->date1) . ' ' . trim($request->date2);
+
+        if (empty($formattedDate) || trim($formattedDate) === '') {
+            dd('日付が空です:', $request->all());
+        }
 
         try {
-            $date = Carbon::createFromFormat('Y年m月d日', trim($formattedDate))->format('Y-m-d');
+            $date = Carbon::createFromFormat('Y年n月j日', str_replace(' ', '', $formattedDate))->format('Y-m-d');
         } catch (\Exception $e) {
-            dd('日付変換エラー', $formattedDate);
+            dd('日付変換エラー:', $formattedDate);
             return back()->withErrors(['date' => '日付の形式が正しくありません。']);
         }
+
+        if (empty($request->start_time) || empty($request->end_time)) {
+            dd('時間がリクエストされていません', $request->all());
+        }
+
+        $formattedStartTime = Carbon::parse($date . ' ' . $request->start_time)->format('Y-m-d H:i:s');
+        $formattedEndTime = Carbon::parse($date . ' ' . $request->end_time)->format('Y-m-d H:i:s');
 
         if (auth('web')->check()) {
             $correctionRequest = AttendanceCorrectionRequest::create([
                 'attendance_id' => $attendance_id,
                 'user_id' => $user->id,
                 'date' => $date,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
+                'start_time' => $formattedStartTime, // ✅ 修正
+                'end_time' => $formattedEndTime,     // ✅ 修正
                 'reason' => $request->reason,
             ]);
 
@@ -58,12 +69,13 @@ class CorrectionRequestController extends Controller
                     if (!empty($breakStart) && !empty($request->break_end[$key] ?? '')) {
                         BreakCorrectionRequest::create([
                             'attendance_correction_request_id' => $correctionRequest->id,
-                            'break_start' => $breakStart,
-                            'break_end' => $request->break_end[$key] ?? '',
+                            'break_start' => Carbon::parse($date . ' ' . $breakStart)->format('Y-m-d H:i:s'),
+                            'break_end' => Carbon::parse($date . ' ' . $request->break_end[$key])->format('Y-m-d H:i:s'),
                         ]);
                     }
                 }
             }
+
             return redirect()->route('attendance.detail', ['id' => $attendance_id])->with('message', '勤怠修正依頼が完了しました')->withInput();
         } elseif (auth('admin')->check()) {
             $attendance = Attendance::findOrFail($attendance_id);
@@ -125,6 +137,11 @@ class CorrectionRequestController extends Controller
             } else {
                 $correctionRequests = collect();
             }
+
+            Log::info('correctionRequests:', $correctionRequests->toArray());
+
+            dump(['コントローラーで取得したデータ' => $correctionRequests->toArray()]);
+
 
             return view('admin.request_list_admin', compact('correctionRequests', 'tab'));
         } else {
