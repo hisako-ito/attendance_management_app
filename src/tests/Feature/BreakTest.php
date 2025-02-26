@@ -245,7 +245,7 @@ class BreakTest extends TestCase
     }
 
     //休憩時刻が管理画面で確認できる
-    public function testAbilityToBreakAttendanceTimeOnTheManagementScreen()
+    public function testAbilityToBreakTimeOnTheManagementScreen()
     {
         $user = User::factory()->create([
             'email' => 'general2@gmail.com',

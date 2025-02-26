@@ -27,58 +27,11 @@ class CorrectionRequest extends FormRequest
         return [
             'start_time' => 'required|date_format:H:i|before:end_time',
             'end_time' => 'required|date_format:H:i|after:start_time',
+            'break_start' => 'nullable|array',
+            'break_start.*' => 'nullable|date_format:H:i|after:start_time|before:end_time',
+            'break_end' => 'nullable|array',
+            'break_end.*' => 'nullable|date_format:H:i|after:break_start.*|before:end_time',
             'reason' => 'required',
-            'break_start.*' => [
-                'nullable',
-                'date_format:H:i',
-                function ($attribute, $value, $fail) {
-                    $start_time = request()->input('start_time');
-                    $index = explode('.', $attribute)[1];
-                    $break_end = request()->input('break_end')[$index] ?? null;
-
-                    if (is_null($value) && is_null($break_end)) {
-                        return;
-                    }
-
-                    if (!is_null($value) && is_null($break_end)) {
-                        $fail('休憩終了時間を記入してください。');
-                    }
-
-                    if (!empty($start_time) && strtotime($value) <= strtotime($start_time)) {
-                        $fail('休憩時間が勤務時間外です。');
-                    }
-
-                    if ($break_end && strtotime($value) >= strtotime($break_end)) {
-                        $fail('休憩開始時間もしくは休憩終了時間が不適切な値です。');
-                    }
-                },
-            ],
-            'break_end.*' => [
-                'nullable',
-                'date_format:H:i',
-                function ($attribute, $value, $fail) {
-                    $end_time = request()->input('end_time');
-                    $index = explode('.', $attribute)[1];
-                    $break_start = request()->input('break_start')[$index] ?? null;
-
-                    if (is_null($value) && is_null($break_start)) {
-                        return;
-                    }
-
-                    if (!is_null($value) && is_null($break_start)) {
-                        $fail('休憩開始時間を記入してください。');
-                    }
-
-
-                    if (!empty($end_time) && strtotime($value) >= strtotime($end_time)) {
-                        $fail('休憩時間が勤務時間外です。');
-                    }
-
-                    if ($break_start && strtotime($value) <= strtotime($break_start)) {
-                        $fail('休憩開始時間もしくは休憩終了時間が不適切な値です。');
-                    }
-                },
-            ],
         ];
     }
 
@@ -92,7 +45,11 @@ class CorrectionRequest extends FormRequest
             'end_time.date_format' => '退勤時間を「00:00」の形式で記入してください。',
             'end_time.after' => '出勤時間もしくは退勤時間が不適切な値です。',
             'break_start.*.date_format' => '休憩開始時間を「00:00」の形式で記入してください。',
+            'break_start.*.after' => '休憩時間が勤務時間外です。',
+            'break_start.*.before' => '休憩時間が勤務時間外です。',
             'break_end.*.date_format' => '休憩終了時間を「00:00」の形式で記入してください。',
+            'break_end.*.after' => '休憩時間が勤務時間外です。',
+            'break_end.*.before' => '休憩時間が勤務時間外です。',
             'reason.required' => '備考を記入してください。',
         ];
     }
