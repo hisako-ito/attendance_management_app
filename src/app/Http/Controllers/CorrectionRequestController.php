@@ -36,19 +36,10 @@ class CorrectionRequestController extends Controller
 
         $formattedDate = trim($request->date1) . ' ' . trim($request->date2);
 
-        if (empty($formattedDate) || trim($formattedDate) === '') {
-            dd('日付が空です:', $request->all());
-        }
-
         try {
             $date = Carbon::createFromFormat('Y年n月j日', str_replace(' ', '', $formattedDate))->format('Y-m-d');
         } catch (\Exception $e) {
-            dd('日付変換エラー:', $formattedDate);
             return back()->withErrors(['date' => '日付の形式が正しくありません。']);
-        }
-
-        if (empty($request->start_time) || empty($request->end_time)) {
-            dd('時間がリクエストされていません', $request->all());
         }
 
         $formattedStartTime = Carbon::parse($date . ' ' . $request->start_time)->format('Y-m-d H:i:s');
@@ -59,8 +50,8 @@ class CorrectionRequestController extends Controller
                 'attendance_id' => $attendance_id,
                 'user_id' => $user->id,
                 'date' => $date,
-                'start_time' => $formattedStartTime, // ✅ 修正
-                'end_time' => $formattedEndTime,     // ✅ 修正
+                'start_time' => $formattedStartTime,
+                'end_time' => $formattedEndTime,
                 'reason' => $request->reason,
             ]);
 
@@ -137,11 +128,6 @@ class CorrectionRequestController extends Controller
             } else {
                 $correctionRequests = collect();
             }
-
-            Log::info('correctionRequests:', $correctionRequests->toArray());
-
-            dump(['コントローラーで取得したデータ' => $correctionRequests->toArray()]);
-
 
             return view('admin.request_list_admin', compact('correctionRequests', 'tab'));
         } else {

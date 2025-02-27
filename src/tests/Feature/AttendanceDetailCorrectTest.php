@@ -250,9 +250,6 @@ class AttendanceDetailCorrectTest extends TestCase
 
         $response = $this->get('/stamp_correction_request/list');
 
-        $correctionRequests = AttendanceCorrectionRequest::all();
-        dump(['管理者ログイン時のデータ' => $correctionRequests->toArray()]);
-
         $response->assertSeeInOrder([
             '承認待ち',
             $user->name,
@@ -328,5 +325,120 @@ class AttendanceDetailCorrectTest extends TestCase
             '残業のため',
             $today->format('Y/m/d'),
         ]);
+    }
+
+    //「承認済み」に管理者が承認した修正申請が全て表示されている
+    public function testCorrectRequestAdministratorAreShownInApproved()
+    {
+        $user = User::factory()->create([
+            'email' => 'general2@gmail.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        $today = Carbon::today();
+
+        $attendance = Attendance::create([
+            'user_id' => $user->id,
+            'date' => $today->format('Y-m-d'),
+            'start_time' => '09:00',
+            'end_time' => '18:00',
+        ]);
+
+        BreakTime::create([
+            'attendance_id' => $attendance->id,
+            'break_start' => '12:00',
+            'break_end' => '13:00',
+        ]);
+
+        $this->post('/login', [
+            'email' => "general2@gmail.com",
+            'password' => "password",
+        ]);
+        $this->assertAuthenticatedAs($user);
+
+        $requestData = [
+            'date1' => $today->format('Y年'),
+            'date2' => $today->format('n月j日'),
+            'start_time' => '10:00',
+            'end_time' => '19:00',
+            'break_start' => ['13:00'],
+            'break_end' => ['14:00'],
+            'is_approved' => 0,
+            'reason' => '残業のため',
+        ];
+
+        $this->post('/attendance/' . $attendance->id, $requestData);
+
+        $correctionRequest = AttendanceCorrectionRequest::latest()->first();
+
+        if (!$correctionRequest) {
+            $this->fail('AttendanceCorrectionRequest が作成されていません。');
+        }
+
+        $correctionRequest->update(['is_approved' => 1]);
+
+        $response = $this->get('/stamp_correction_request/list?tab=approved');
+
+        $response->assertSeeInOrder([
+            '承認済み',
+            $user->name,
+            $today->format('Y/m/d'),
+            '残業のため',
+            $today->format('Y/m/d'),
+        ]);
+    }
+
+    //各申請の「詳細」を押下すると申請詳細画面に遷移する
+    public function testClickingDetailsTransitionApplicationDetailsScreen()
+    {
+        $user = User::factory()->create([
+            'email' => 'general2@gmail.com',
+            'password' => Hash::make('password'),
+        ]);
+
+        $today = Carbon::today();
+
+        $attendance = Attendance::create([
+            'user_id' => $user->id,
+            'date' => $today->format('Y-m-d'),
+            'start_time' => '09:00',
+            'end_time' => '18:00',
+        ]);
+
+        BreakTime::create([
+            'attendance_id' => $attendance->id,
+            'break_start' => '12:00',
+            'break_end' => '13:00',
+        ]);
+
+        $this->post('/login', [
+            'email' => "general2@gmail.com",
+            'password' => "password",
+        ]);
+        $this->assertAuthenticatedAs($user);
+
+        $requestData = [
+            'date1' => $today->format('Y年'),
+            'date2' => $today->format('n月j日'),
+            'start_time' => '10:00',
+            'end_time' => '19:00',
+            'break_start' => ['13:00'],
+            'break_end' => ['14:00'],
+            'is_approved' => 0,
+            'reason' => '残業のため',
+        ];
+
+        $this->post('/attendance/' . $attendance->id, $requestData);
+
+        $response = $this->get('/stamp_correction_request/list');
+
+        $response->assertSeeInOrder([
+            '詳細',
+        ]);
+
+        $response = $this->get('/attendance/' . $attendance->id);
+
+        $response->assertSee($today->format('Y年'), $today->format('n月j日'), '残業のため', '承認待ちのため修正はできません。');
+        $response->assertStatus(200);
     }
 }

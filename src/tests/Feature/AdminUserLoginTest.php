@@ -75,7 +75,7 @@ class AdminUserLoginTest extends TestCase
 
     public function testSuccessfulAdminUserLogin()
     {
-        $AdminUser = Admin::factory()->create([
+        $adminUser = Admin::factory()->create([
             'email' => 'admin1@gmail.com',
             'password' => Hash::make('password'),
         ]);
@@ -87,6 +87,6 @@ class AdminUserLoginTest extends TestCase
 
         $response->assertRedirect('/admin/attendance/list');
 
-        $this->assertAuthenticatedAs($AdminUser, 'admin');
+        $this->assertAuthenticatedAs($adminUser, 'admin');
     }
 }

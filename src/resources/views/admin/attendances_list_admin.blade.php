@@ -21,10 +21,8 @@
             </div>
             <div class="date-nav__item date-current"><i class="far fa-calendar-alt" style="color: #4B4B4B; margin-right: 5px; z-index: 1;"></i>{{ $selectedDate->format('Y/m/d') }}</div>
             <div class="date-nav__item date-next">
-                @if (!$selectedDate->isToday())
                 <a href="{{ route('admin.attendance.list', ['year' => $nextDate->year, 'month' => $nextDate->month, 'day' => $nextDate->day]) }}" class="date-link  next-link">翌日<i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
                 </a>
-                @endif
             </div>
         </div>
 

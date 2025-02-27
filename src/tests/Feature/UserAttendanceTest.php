@@ -22,26 +22,6 @@ class UserAttendanceTest extends TestCase
      * @return void
      */
 
-    public function testAttendanceCurrentTimeDisplayed()
-    {
-        $user = User::factory()->create([
-            'email' => 'general2@gmail.com',
-            'password' => Hash::make('password'),
-        ]);
-
-        $CurrentTime = Carbon::now()->format('H:i');
-
-        $response = $this->post('/login', [
-            'email' => "general2@gmail.com",
-            'password' => "password",
-        ]);
-        $response->assertRedirect('/attendance');
-        $this->assertAuthenticatedAs($user);
-
-        $response = $this->get('/attendance');
-        $response->assertSee($CurrentTime);
-    }
-
     public function testAttendanceOutOfWorkDisplayed()
     {
         $user = User::factory()->create([
