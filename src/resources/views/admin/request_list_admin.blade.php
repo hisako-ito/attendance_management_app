@@ -33,7 +33,7 @@
             @foreach($correctionRequests as $correctionRequest)
             <tr class="list-table__row">
                 <td class="list-table__data">{{ $correctionRequest->is_approved ? '承認済み' : '承認待ち' }}</td>
-                <td class="list-table__data">{{ optional($correctionRequest->user)->name }}</td>
+                <td class="list-table__data">{{ $correctionRequest->user->name }}</td>
                 <td class="list-table__data">{{ \Carbon\Carbon::parse($correctionRequest->date)->format('Y/m/d') }}</td>
                 <td class="list-table__data">{{ $correctionRequest->reason }}</td>
                 <td class="list-table__data">{{ \Carbon\Carbon::parse($correctionRequest->created_at)->format('Y/m/d') }}</td>
