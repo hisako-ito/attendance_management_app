@@ -34,7 +34,7 @@ email: general1@gmail.com
 password: password
 name: 一般ユーザ2
 email: general2@gmail.com
-password: password　　
+password: password　
 
 
 name: 管理者ユーザ1
