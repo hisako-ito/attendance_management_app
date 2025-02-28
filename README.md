@@ -31,9 +31,9 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 ### テストアカウント
 
 #### 一般ユーザーアカウント
-name: 一般ユーザ1  
-email: general1@gmail.com  
-password: password  
+    name: 一般ユーザ1  
+    email: general1@gmail.com  
+    password: password  
 
 name: 一般ユーザ2  
 email: general2@gmail.com  
