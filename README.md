@@ -35,18 +35,18 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
     email: general1@gmail.com  
     password: password  
 
-name: 一般ユーザ2  
-email: general2@gmail.com  
-password: password   
+    name: 一般ユーザ2  
+    email: general2@gmail.com  
+    password: password   
 
 #### 管理者ユーザーアカウント
-name: 管理者ユーザ1  
-email: admin1@gmail.com  
-password: password  
+    name: 管理者ユーザ1  
+    email: admin1@gmail.com  
+    password: password  
 
-name: 管理者ユーザ2  
-email: admin2@gmail.com  
-password: password  
+    name: 管理者ユーザ2  
+    email: admin2@gmail.com  
+    password: password  
 
 ## 使用技術(実行環境)
 * PHP 7.4.9
