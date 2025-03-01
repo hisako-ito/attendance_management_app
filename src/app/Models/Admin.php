@@ -44,4 +44,9 @@ class Admin extends Authenticatable
     {
         return $this->hasMany(Attendance::class);
     }
+
+    public function attendanceCorrectionRequests()
+    {
+        return $this->hasMany(AttendanceCorrectionRequest::class);
+    }
 }

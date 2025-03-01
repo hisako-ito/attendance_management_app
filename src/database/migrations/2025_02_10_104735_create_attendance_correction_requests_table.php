@@ -21,6 +21,7 @@ class CreateAttendanceCorrectionRequestsTable extends Migration
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->text('reason');
+            $table->foreignId('admin_id')->nullable()->constrained('admins')->cascadeOnDelete();
             $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });

@@ -16,6 +16,7 @@ class AttendanceCorrectionRequest extends Model
         'start_time',
         'end_time',
         'reason',
+        'admin_id',
         'is_approved',
     ];
 
@@ -34,6 +35,11 @@ class AttendanceCorrectionRequest extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(admin::class);
     }
 
     public function breakCorrectionRequests()
