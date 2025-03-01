@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Attendance;
 use App\Models\BreakTime;
 use App\Models\AttendanceCorrectionRequest;
@@ -24,8 +25,10 @@ class AdminCorrectionRequestController extends Controller
 
     public function storeRequestApprove($id, Request $request)
     {
+        $adminUser = Auth::user();
         $correctionRequest = AttendanceCorrectionRequest::find($id);
         $correctionRequest->update([
+            'admin_id' => $adminUser->id,
             'is_approved' => true,
         ]);
 

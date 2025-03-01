@@ -32,7 +32,7 @@ class Attendance extends Model
 
     public function admin()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(admin::class);
     }
 
     public function breaks()
