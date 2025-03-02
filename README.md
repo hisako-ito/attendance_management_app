@@ -71,5 +71,4 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 ## URL
 * 開発環境： [http://localhost/login](http://localhost/login)
 * phpMyAdmin： [http://localhost:8080/](http://localhost:8080/)
-* mailtrap： 
 
