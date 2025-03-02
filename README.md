@@ -42,7 +42,7 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
     email: general2@gmail.com  
     password: password   
 
-#### 管理者ユーザーアカウント
+#### 管理者アカウント
     name: 管理者ユーザ1  
     email: admin1@gmail.com  
     password: password  
