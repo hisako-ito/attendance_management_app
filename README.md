@@ -49,7 +49,7 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
     email: admin2@gmail.com  
     password: password  
 
-#### PHPUnitを利用したテストに関して
+### PHPUnitを利用したテストに関して
 以下のコマンド:  
     `docker-compose exec php bash
     php artisan migrate:fresh --env=testing
