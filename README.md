@@ -51,9 +51,9 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 
 #### PHPUnitを利用したテストに関して
 以下のコマンド:  
-    docker-compose exec php bash
+    `docker-compose exec php bash
     php artisan migrate:fresh --env=testing
-    ./vendor/bin/phpunit
+    ./vendor/bin/phpunit`
 
 ## 使用技術(実行環境)
 * PHP 7.4.9
