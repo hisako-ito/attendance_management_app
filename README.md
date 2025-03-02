@@ -65,7 +65,7 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 * MySQL 15.1
 
 ## ER図
-![attendance_management_app](https://github.com/user-attachments/assets/cfab0fb6-312d-4fdb-87ab-5580b2801d37)
+![attendance_management_app](https://github.com/user-attachments/assets/b353b817-a4e7-4521-8642-0920aa6ab9bd)
 
 
 
