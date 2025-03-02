@@ -69,7 +69,7 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 
 
 ## URL
-* 開発環境： [http://localhost/login](http://localhost/login)(一般ユーザーログイン画面)
+* 開発環境： [http://localhost/login](http://localhost/login)(一般ユーザーログイン画面)  
 *[http://localhost/admin/login](http://localhost/admin/login)(管理者ログイン画面) 
 * phpMyAdmin： [http://localhost:8080/](http://localhost:8080/)
 
