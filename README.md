@@ -8,7 +8,7 @@
 3. プロジェクト直下で、以下のコマンドを実行する
 
 ```
-    make init
+make init
 ```
 
 ※Makefileは実行するコマンドを省略することができる便利な設定ファイルです。コマンドの入力を効率的に行えるようになります。
@@ -54,9 +54,9 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 ### PHPUnitを利用したテストに関して
 以下のコマンド:  
     
-    docker-compose exec php bash
-    php artisan migrate:fresh --env=testing
-    ./vendor/bin/phpunit
+    `docker-compose exec php bash`
+    `php artisan migrate:fresh --env=testing`
+    `./vendor/bin/phpunit`
     
 
 ## 使用技術(実行環境)
