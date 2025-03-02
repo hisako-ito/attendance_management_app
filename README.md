@@ -56,7 +56,7 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
     
     docker-compose exec php bash
     php artisan migrate:fresh --env=testing
-    ./vendor/bin/phpunit`
+    ./vendor/bin/phpunit
     
 
 ## 使用技術(実行環境)
