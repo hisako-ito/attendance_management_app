@@ -76,9 +76,7 @@ php artisan migrate:fresh --env=testing
 * MySQL 15.1
 
 ## ER図
-![attendance_management_app](https://github.com/user-attachments/assets/b353b817-a4e7-4521-8642-0920aa6ab9bd)
-
-
+![attendance_management](https://github.com/user-attachments/assets/010af4d1-cdc3-4979-ab69-78cbdd1ec914)
 
 ## URL
 * 開発環境： [http://localhost/login](http://localhost/login)(一般ユーザーログイン画面)  
