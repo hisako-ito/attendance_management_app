@@ -38,8 +38,6 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 **email:** [general1@gmail.com](mailto:general1@gmail.com)  
 **password:** password  
 
----
-
 **name:** 一般ユーザ2    
 **email:** [general2@gmail.com](mailto:general2@gmail.com)  
 **password:** password  
@@ -50,8 +48,6 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 **name:** 管理者ユーザ1      
 **email:** [admin1@gmail.com](mailto:admin1@gmail.com)  
 **password:** password  
-
----
 
 **name:** 管理者ユーザ2    
 **email:** [admin2@gmail.com](mailto:admin2@gmail.com)  
