@@ -28,8 +28,9 @@ mailtrapというツールを使用しています。
 ([https://mailtrap.io/](https://mailtrap.io/))  
 メールボックスのIntegrationsから 「laravel 7.x and 8.x」を選択し、  
 .envファイルのMAIL_MAILERからMAIL_ENCRYPTIONまでの項目をコピー＆ペーストしてください。  
-MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。  
-*※既に登録済みのメールアドレスでは会員登録できません。*
+MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
+> [!NOTE]
+> ※既に登録済みのメールアドレスでは会員登録できません。
 
 ### テストアカウント
 ---
