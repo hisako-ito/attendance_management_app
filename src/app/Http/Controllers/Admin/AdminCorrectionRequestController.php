@@ -37,7 +37,6 @@ class AdminCorrectionRequestController extends Controller
         $attendance->update([
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
-            'reason' => $request->reason,
         ]);
 
         if (!empty($request->break_start) && is_array($request->break_start)) {

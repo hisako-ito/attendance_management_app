@@ -48,9 +48,23 @@ class CorrectionRequest extends FormRequest
             'break_start.*.after' => '休憩時間が勤務時間外です。',
             'break_start.*.before' => '休憩時間が勤務時間外です。',
             'break_end.*.date_format' => '休憩終了時間を「00:00」の形式で記入してください。',
-            'break_end.*.after' => '休憩時間が勤務時間外です。',
+            'break_end.*.after' => '休憩終了時間は休憩開始時間より後に設定してください。',
             'break_end.*.before' => '休憩時間が勤務時間外です。',
             'reason.required' => '備考を記入してください。',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $breakStarts = $this->input('break_start', []);
+            $breakEnds = $this->input('break_end', []);
+
+            foreach ($breakStarts as $key => $breakStart) {
+                if (isset($breakEnds[$key]) && $breakEnds[$key] < $breakStart) {
+                    $validator->errors()->add("break_end.$key", '休憩開始時間は休憩終了時間より前に設定してください。');
+                }
+            }
+        });
     }
 }

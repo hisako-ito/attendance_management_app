@@ -7,7 +7,6 @@ use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Date;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminAttendanceController extends Controller
