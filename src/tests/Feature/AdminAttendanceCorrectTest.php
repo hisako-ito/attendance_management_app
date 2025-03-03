@@ -391,7 +391,6 @@ class AdminAttendanceCorrectTest extends TestCase
             'date' => $today->format('Y-m-d'),
             'start_time' => Carbon::parse('09:00')->format('Y-m-d H:i:s'),
             'end_time' => Carbon::parse('19:00')->format('Y-m-d H:i:s'),
-            'reason' => '残業のため',
         ]);
 
         $this->assertDatabaseHas('breaks', [
