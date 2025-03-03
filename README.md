@@ -34,22 +34,22 @@ MAIL_FROM_ADDRESSは任意のメールアドレスを入力してください。
 ### テストアカウント
 
 #### 一般ユーザーアカウント
-#####name: 一般ユーザ1  
-#####email: general1@gmail.com  
-#####password: password  
+##### name: 一般ユーザ1  
+##### email: general1@gmail.com  
+##### password: password  
 
-#####name: 一般ユーザ2  
-#####email: general2@gmail.com  
-#####password: password   
+##### name: 一般ユーザ2  
+##### email: general2@gmail.com  
+##### password: password   
 
 #### 管理者アカウント
-#####name: 管理者ユーザ1  
-#####email: admin1@gmail.com  
-#####password: password  
+##### name: 管理者ユーザ1  
+##### email: admin1@gmail.com  
+##### password: password  
 
-#####name: 管理者ユーザ2  
-#####email: admin2@gmail.com  
-#####password: password  
+##### name: 管理者ユーザ2  
+##### email: admin2@gmail.com  
+##### password: password  
 
 ### PHPUnitを利用したテストに関して
 以下のコマンド:  
